@@ -57,6 +57,43 @@ No implementado
 Algoritmo de dificultad dinámica
 
 
+
+
+
+
+
+
+Metodología
+El proyecto se implementará mediante un enfoque iterativo y modular, priorizando la escalabilidad. La metodología se estructura en:
+Desarrollo Iterativo:
+Fase Prototipo: Implementación básica con Gemini-Pro y gestión de contexto simple (historial de 4 interacciones).
+Validación Continua: Pruebas con jugadores reales para identificar inconsistencias narrativas y errores en reglas.
+Refinamiento Adaptativo: Integración progresiva de módulos (motor de reglas, base de conocimientos).
+Arquitectura Modular:
+Separación clara entre:
+Capa Narrativa: Modelo de lenguaje + embeddings para persistencia contextual.
+Capa Lógica: Sistema basado en D&D 5e SRD con resolución automatizada de tiradas y combate.
+Justificación: Permite actualizar componentes sin afectar el sistema completo.
+Gestión de Contexto:
+Técnica de Context Windowing: Mantiene las últimas 5 interacciones en memoria activa.
+Vector Database (FAISS): Almacena eventos clave de la campaña para recuperación semántica.
+
+Herramientas y Tecnologías
+Técnicas de Fast Prompting:
+Meta-Prompting: Estructura jerárquica con:
+
+prompt = f'''
+[ROL] DM expert | [SISTEMA] D&D 5e | [CONTEXTO] {contexto} 
+[OBJETIVO] {objetivo_escena} | [ACCION] {accion_jugador}
+'''
+Chain-of-Thought: Para resolución de combates:
+
+"Paso 1: Calcular CA del objetivo. Paso 2: Determinar bonificaciones. Paso 3: Resolver tirada..."  
+
+
+
+
+
 Limitaciones Actuales:
 Dependencia total del modelo de lenguaje para generación de contenido
 Ausencia de verificación automática de reglas del sistema
